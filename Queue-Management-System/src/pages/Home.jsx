@@ -1,11 +1,11 @@
 import React from 'react'
 import { Colors } from '../constant/colors'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import MyReserve from '../components/้้home/MyReserve'
 import MyHistory from '../components/้้home/MyHistory'
 import { useState } from 'react'
 import { queueService } from '../services/queueService'
 import { useEffect } from 'react'
+import { useAuth } from '../context/useAuth'
 
 const Home = () => {
   const [active, setActive] = useState('reserve')
@@ -16,7 +16,8 @@ const Home = () => {
     date: '',
     arriveTime: ''
   })
-  const userId = 1
+  const { user } = useAuth()
+  const userId = user?.user_id
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })

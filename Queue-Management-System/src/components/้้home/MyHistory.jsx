@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Colors } from '../../constant/colors'
 import { queueService } from '../../services/queueService'
-
-const userId = 1
+import { useAuth } from '../../context/useAuth'
 
 const MyHistory = () => {
+    const { user } = useAuth()
     const [queues, setQueues] = useState([])
 
     useEffect(() => {
         queueService.getAll().then(data => {
             const history = data.filter(q =>
                 (q.status_id === '2' || q.status_id === '3') &&
-                q.user_id === String(userId)
+                q.user_id === String(user?.user_id)
             )
             setQueues(history)
         })
-    }, [])
+    }, [user])
 
     const getStatusStyle = (statusId) => {
         if (statusId === '3') return { color: 'green', fontWeight: 'bold' }
