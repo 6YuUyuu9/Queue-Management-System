@@ -68,6 +68,18 @@ export const queueService = {
         }
     },
 
+    // เรียกใช้เมื่อลูกค้ามาถึง
+    arrive: async (queueId) => {
+        const response = await api.post('/queue.php/arrive', { queue_id: queueId });
+        return response.data;
+    },
+
+    // เรียกใช้เมื่อบริการเสร็จสิ้น
+    complete: async (queueId) => {
+        const response = await api.post('/queue.php/complete', { queue_id: queueId });
+        return response.data;
+    },
+
     /**
      * ลบคิวออกจากระบบ
      * @param {number} queueId - ID ของคิวที่ต้องการลบ
