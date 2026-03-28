@@ -10,6 +10,7 @@ import Example2 from './pages/admin/Example2'
 import Example1 from './pages/admin/Example1'
 import AdminHome from './pages/AdminHome'
 import AdminDashboard from './pages/AdminDashboard'
+import AdminNavbar from './components/AdminNavbar'
 
 function App() {
   return (

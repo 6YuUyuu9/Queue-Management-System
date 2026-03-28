@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function AdminDashboard() {
   const [search, setSearch] = useState("");
-
-  const [queues] = useState([
-    { id: 1, name: "สมชาย", people: 2, status: "waiting" },
-    { id: 2, name: "สมหญิง", people: 4, status: "processing" },
-    { id: 3, name: "John", people: 3, status: "done" },
-  ]);
-
+  const [queues, setQueues] = useState([]);
   const [selected, setSelected] = useState(null);
 
+  // โหลดข้อมูลจาก API
+  useEffect(() => {
+    fetch("http://localhost/food_queue/api/queue.php")
+      .then((res) => res.json())
+      .then((data) => {
+        setQueues(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   const filteredQueues = queues.filter((q) =>
-    q.name.toLowerCase().includes(search.toLowerCase())
+    q.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   const renderStatus = (status) => {
@@ -24,6 +28,7 @@ function AdminDashboard() {
       return <span className="badge bg-warning text-dark">กำลังดำเนินการ</span>;
     if (status === "done")
       return <span className="badge bg-success">ดำเนินการแล้ว</span>;
+    return status;
   };
 
   return (
@@ -34,10 +39,9 @@ function AdminDashboard() {
           {/* LEFT */}
           <div className="col-md-8">
 
-            {/* SEARCH */}
             <div className="card shadow mb-3 border-0">
               <div className="card-body">
-                <h5 className="fw-bold mb-3"> ค้นหาคิว</h5>
+                <h5 className="fw-bold mb-3">ค้นหาคิว</h5>
                 <input
                   type="text"
                   className="form-control"
@@ -48,16 +52,15 @@ function AdminDashboard() {
               </div>
             </div>
 
-            {/* TABLE */}
             <div className="card shadow border-0">
               <div className="card-body">
-                <h5 className="fw-bold mb-3"> รายการคิว</h5>
+                <h5 className="fw-bold mb-3">รายการคิว</h5>
 
                 <div className="table-responsive">
                   <table className="table table-hover">
                     <thead>
                       <tr>
-                        <th>#</th>
+                        <th>ลำดับคิว</th>
                         <th>ชื่อ</th>
                         <th>จำนวนที่นั่ง</th>
                         <th>สถานะ</th>
@@ -68,15 +71,7 @@ function AdminDashboard() {
                         <tr
                           key={q.id}
                           style={{ cursor: "pointer" }}
-                          onClick={() =>
-                            setSelected({
-                              name: q.name,
-                              phone: "099-999-9999",
-                              total: 10,
-                              cancel: 2,
-                              success: 8,
-                            })
-                          }
+                          onClick={() => setSelected(q)}
                         >
                           <td>{index + 1}</td>
                           <td>{q.name}</td>
@@ -96,7 +91,7 @@ function AdminDashboard() {
           <div className="col-md-4">
             <div className="card shadow border-0">
               <div className="card-body">
-                <h5 className="fw-bold mb-3"> ข้อมูลลูกค้า</h5>
+                <h5 className="fw-bold mb-3">ข้อมูลลูกค้า</h5>
 
                 {!selected ? (
                   <p className="text-muted">กรุณาเลือกคิวจากตาราง</p>
@@ -107,15 +102,8 @@ function AdminDashboard() {
 
                     <hr />
 
-                    <p><b>การจองทั้งหมด:</b> {selected.total}</p>
-                    <p>
-                      <b>ยกเลิก:</b>{" "}
-                      <span className="text-danger">{selected.cancel}</span>
-                    </p>
-                    <p>
-                      <b>สำเร็จ:</b>{" "}
-                      <span className="text-success">{selected.success}</span>
-                    </p>
+                    <p><b>จำนวนคน:</b> {selected.people}</p>
+                    <p><b>สถานะ:</b> {selected.status}</p>
                   </>
                 )}
               </div>
