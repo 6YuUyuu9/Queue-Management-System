@@ -32,6 +32,3 @@ CREATE TABLE queues (
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (counter_id) REFERENCES counters(counter_id)
 );
-
--- ใส่ข้อมูลจำลองนิดหน่อยให้เพื่อนเทสได้
-INSERT INTO counters (counter_name) VALUES ('ช่องบริการที่ 1'), ('ช่องบริการที่ 2');
