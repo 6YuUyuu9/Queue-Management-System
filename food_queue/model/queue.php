@@ -92,6 +92,16 @@ class Queue
         return $stmt->execute();
     }
 
+    public function skipQueue($queue_id)
+    {
+        $sql = "UPDATE " . $this->table . " 
+            SET status_id = 2 
+            WHERE queue_id = :queue_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':queue_id', $queue_id);
+        return $stmt->execute();
+    }
+
     public function markCompleted($queue_id)
     {
         // เปลี่ยนสถานะเป็น 3 (completed) พร้อมบันทึกเวลา
