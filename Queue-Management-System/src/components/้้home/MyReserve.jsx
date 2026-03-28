@@ -28,7 +28,7 @@ const MyReserve = () => {
     }
 
     return (
-        <div style={{ background: Colors.lightGray, minHeight: '300px', padding: '0 18%' }}>
+        <div className=' pt-3' style={{ background: Colors.lightGray, minHeight: '300px', padding: '0 18%' }}>
             <table className="table table-bordered bg-white mt-3" style={{ borderRadius: '12px', overflow: 'hidden' }}>
                 <thead style={{ backgroundColor: Colors.yellow, color: Colors.blue }}>
                     <tr>

@@ -75,7 +75,7 @@ const Home = () => {
           {/* บน */}
           <div className="d-flex gap-2 align-items-center">
             <label>ลงทะเบียนจองคิว</label>
-            <label className='fs-4'>สวัสดีคุณ สวยใจ ใจสวย</label>
+            <label className='fs-4'>สวัสดีคุณ {user?.username}</label>
           </div>
 
           {/* ล่าง */}
@@ -121,7 +121,7 @@ const Home = () => {
 
         <div>
           {/* ปุ่ม navbar อยู่บน */}
-          <div style={{ display: 'flex', gap: '16px', padding: '8px 12px' }}>
+          <div className='mt-4' style={{ display: 'flex', gap: '16px', padding: '8px 12px' }}>
             <button
               onClick={() => setActive('reserve')}
               style={{
