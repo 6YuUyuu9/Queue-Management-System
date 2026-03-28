@@ -9,7 +9,6 @@ import Signup from './pages/Signup'
 function App() {
   return (
     <>
-      App
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
