@@ -1,30 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Colors } from '../../constant/colors'
 import { queueService } from '../../services/queueService'
+import { useAuth } from '../../context/useAuth'
 
 const MyReserve = () => {
-
-    const userId = 1
-
+    const { user } = useAuth()
     const [queues, setQueues] = useState([])
 
     useEffect(() => {
-    queueService.getAll().then(data => {
-        console.log('all:', data)
-        console.log('userId:', userId)
-        console.log('sample user_id from data:', data[0]?.user_id)
-        const active = data.filter(q => q.status_id !== '3' && q.user_id === String(userId))
-        console.log('filtered:', active)
-        setQueues(active)
-    })
-}, [])
-
-    // useEffect(() => {
-    //     queueService.getAll().then(data => {
-    //         const active = data.filter(q => q.status_id !== '3' && q.status_id !== '2' && q.user_id === String(userId))
-    //         setQueues(active)
-    //     })
-    // }, [])
+        queueService.getAll().then(data => {
+            const active = data.filter(q => q.status_id !== '3' && q.user_id === String(user?.user_id))
+            setQueues(active)
+        })
+    }, [user])
 
     const isToday = (dateStr) => {
         const today = new Date().toISOString().slice(0, 10)
@@ -54,7 +42,11 @@ const MyReserve = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {queues.map(q => {
+                    {queues.length === 0 ? (
+                        <tr>
+                            <td colSpan={7} className="text-center text-muted">ไม่มีข้อมูลคิว</td>
+                        </tr>
+                    ) : queues.map(q => {
                         const reserveDate = q.reserve_date?.slice(0, 10)
                         const reserveTime = q.reserve_date?.slice(11, 16)
                         const today = isToday(q.reserve_date)
