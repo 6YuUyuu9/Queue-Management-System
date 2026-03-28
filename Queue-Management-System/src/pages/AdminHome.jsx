@@ -23,22 +23,27 @@ function AdminHome() {
   }, []);
 
   // ดึงข้อมูลจริงจาก API
-  useEffect(() => {
-    fetch("http://localhost/food_queue/api/queue.php")
-      .then((res) => res.json())
-      .then((queues) => {
-        const summary = {
-          total: queues.length,
-          done: queues.filter(q => q.status === "done").length,
-          processing: queues.filter(q => q.status === "processing").length,
-          waiting: queues.filter(q => q.status === "waiting").length,
-        };
+ useEffect(() => {
+  const fetchSummary = async () => {
+    try {
+      const res = await axios.get("http://localhost/food_queue/api/queue.php");
+      const queues = res.data;
 
-        setData(summary);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+      const summary = {
+        total: queues.length,
+        done: queues.filter(q => q.status === "done").length,
+        processing: queues.filter(q => q.status === "processing").length,
+        waiting: queues.filter(q => q.status === "waiting").length,
+      };
 
+      setData(summary);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  fetchSummary();
+}, []);
   return (
     <div className="bg-light min-vh-100 p-4">
       <div className="container">
