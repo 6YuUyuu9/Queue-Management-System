@@ -22,14 +22,21 @@ function AdminHome() {
     setToday(formattedDate);
   }, []);
 
+  // ดึงข้อมูลจริงจาก API
   useEffect(() => {
-    // mock data
-    setData({
-      total: 120,
-      done: 70,
-      processing: 20,
-      waiting: 30,
-    });
+    fetch("http://localhost/food_queue/api/queue.php")
+      .then((res) => res.json())
+      .then((queues) => {
+        const summary = {
+          total: queues.length,
+          done: queues.filter(q => q.status === "done").length,
+          processing: queues.filter(q => q.status === "processing").length,
+          waiting: queues.filter(q => q.status === "waiting").length,
+        };
+
+        setData(summary);
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   return (
