@@ -35,6 +35,21 @@ export const queueService = {
         }
     },
 
+    // ตัวอย่างฟังก์ชันใน queueService.js
+    update: async (queueId, tableId, personCount) => {
+        try {
+            const response = await api.post('/queue.php/update', {
+                queue_id: queueId,
+                table_id: tableId,
+                person_count: personCount
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Error updating queue:", error);
+            throw error;
+        }
+    },
+
     /**
      * อัปเดตสถานะคิว
      * @param {number} queueId - ID ของคิว
