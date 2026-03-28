@@ -5,9 +5,11 @@ import MyReserve from '../components/้้home/MyReserve'
 import MyHistory from '../components/้้home/MyHistory'
 import { useState } from 'react'
 import { queueService } from '../services/queueService'
+import { useEffect } from 'react'
 
 const Home = () => {
   const [active, setActive] = useState('reserve')
+  const [currentQueue, setCurrentQueue] = useState(null)
   const [form, setForm] = useState({
     phone: '',
     personCount: '',
@@ -40,6 +42,19 @@ const Home = () => {
       console.error('เกิดข้อผิดพลาด:', error);
     }
   }
+
+  useEffect(() => {
+    queueService.getAll().then(data => {
+      const today = new Date().toISOString().slice(0, 10)
+
+      // หาคิวที่มี arrive_at วันนี้ เรียงล่าสุดก่อน
+      const todayArrived = data
+        .filter(q => q.arrive_at?.slice(0, 10) === today)
+        .sort((a, b) => new Date(b.arrive_at) - new Date(a.arrive_at))
+
+      setCurrentQueue(todayArrived[0] || null)
+    })
+  }, [])
   return (
     <div>
       <div style={{ padding: '0 17%' }}>
@@ -48,9 +63,9 @@ const Home = () => {
           <p
             style={{ color: Colors.blue, border: `2px solid ${Colors.yellow}`, borderRadius: '12px', padding: '0.1rem 5rem' }}
             className='fs-3 fw-bold text-center'>
-            A003
+            {currentQueue ? `เบอร์ ${currentQueue.queue_id}` : 'ไม่มี'}
             <p className='fs-6'>
-              คิวก่อนหน้า 1 คิว
+              {currentQueue ? `คิวก่อนหน้า ${currentQueue.queue_id - 1} คิว` : ''}
             </p>
           </p>
         </div>
