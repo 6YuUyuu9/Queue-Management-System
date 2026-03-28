@@ -80,6 +80,11 @@ export const queueService = {
         return response.data;
     },
 
+    skip: async (queueId) => {
+        const response = await api.post('/queue.php/skip', { queue_id: queueId });
+        return response.data;
+    },
+
     /**
      * ลบคิวออกจากระบบ
      * @param {number} queueId - ID ของคิวที่ต้องการลบ
