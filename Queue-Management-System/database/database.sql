@@ -13,19 +13,21 @@ CREATE TABLE users (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- 2. สร้างตาราง counters
+-- 2. สร้างตาราง counters (Updated)
 CREATE TABLE counters (
     counter_id INT AUTO_INCREMENT PRIMARY KEY,
     counter_name VARCHAR(50) NOT NULL,
+    counter_type VARCHAR(20) NOT NULL, -- New: e.g., '2-people', '4-people', 'VIP'
     status VARCHAR(20) DEFAULT 'active'
 );
 
--- 3. สร้างตาราง queues
+-- 3. สร้างตาราง queues (Updated)
 CREATE TABLE queues (
     queue_id INT AUTO_INCREMENT PRIMARY KEY,
     queue_number VARCHAR(10) NOT NULL,
     user_id INT NOT NULL,
-    counter_id INT NULL,
+    counter_id INT NULL, 
+    requested_type VARCHAR(20) NOT NULL, -- New: User chooses '2-people' when booking
     status VARCHAR(20) DEFAULT 'waiting', 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
