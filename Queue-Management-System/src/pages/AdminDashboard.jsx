@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -8,14 +9,20 @@ function AdminDashboard() {
   const [selected, setSelected] = useState(null);
 
   // โหลดข้อมูลจาก API
-  useEffect(() => {
-    fetch("http://localhost/food_queue/api/queue.php")
-      .then((res) => res.json())
-      .then((data) => {
-        setQueues(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+
+
+useEffect(() => {
+  const fetchQueues = async () => {
+    try {
+      const res = await axios.get("http://localhost/food_queue/api/queue.php");
+      setQueues(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  fetchQueues();
+}, []);
 
   const filteredQueues = queues.filter((q) =>
     q.name?.toLowerCase().includes(search.toLowerCase())
