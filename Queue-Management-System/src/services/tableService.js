@@ -23,5 +23,20 @@ export const tableService = {
             type_id: typeId
         });
         return response.data;
+    },
+
+    update: async (tableId, tableName, typeId) => {
+        const response = await api.post('/table.php/update', {
+            table_id: tableId,
+            table_name: tableName,
+            type_id: typeId
+        });
+        return response.data;
+    },
+    delete: async (tableId) => {
+        const response = await api.post('/table.php/delete', {
+            table_id: tableId
+        });
+        return response.data;
     }
 };
