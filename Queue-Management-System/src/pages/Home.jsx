@@ -4,9 +4,42 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import MyReserve from '../components/้้home/MyReserve'
 import MyHistory from '../components/้้home/MyHistory'
 import { useState } from 'react'
+import { queueService } from '../services/queueService'
 
 const Home = () => {
   const [active, setActive] = useState('reserve')
+  const [form, setForm] = useState({
+    phone: '',
+    personCount: '',
+    date: '',
+    arriveTime: ''
+  })
+  const userId = 1
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  const handleRegister = async () => {
+    try {
+      const tableResult = await queueService.findTable(form.date, form.arriveTime, form.personCount);
+      console.log('tableResult:', tableResult);  // ดูตรงนี้
+
+      if (!tableResult.success) {
+        alert(tableResult.message);
+        return;
+      }
+
+      const result = await queueService.add(userId, tableResult.table.table_id, form.personCount);
+      console.log('result:', result);  // ดูตรงนี้ด้วย
+
+      if (result.success) {
+        alert(`จองคิวสำเร็จ! โต๊ะ: ${tableResult.table.table_name}`);
+      }
+    } catch (error) {
+      console.error('เกิดข้อผิดพลาด:', error);
+    }
+  }
   return (
     <div>
       <div style={{ padding: '0 17%' }}>
@@ -30,37 +63,40 @@ const Home = () => {
           </div>
 
           {/* ล่าง */}
-          <div style={{ backgroundColor: Colors.lightGray, borderRadius: '16px', padding: '1.5rem' }} >
+          <div style={{ backgroundColor: Colors.lightGray, borderRadius: '16px', padding: '1.5rem' }}>
             <div className="row mb-3">
-              <div className="col-6 d-flex align-items-center gap-2">
+              <div className="col-6 d-flex flex-column gap-1">
                 <label>Phone</label>
-                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px', flex: 1 }}>
-                  <input type="text" className="form-control border-0 bg-transparent p-0 w-100" />
+                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px' }}>
+                  <input name="phone" value={form.phone} onChange={handleChange} type="text" className="form-control border-0 bg-transparent p-0 w-100" />
                 </div>
               </div>
-              <div className="col-6 d-flex align-items-center gap-2">
+              <div className="col-6 d-flex flex-column gap-1">
                 <label>Number of People</label>
-                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px', flex: 1 }}>
-                  <input type="number" className="form-control border-0 bg-transparent p-0 w-100" />
+                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px' }}>
+                  <input name="personCount" value={form.personCount} onChange={handleChange} type="number" className="form-control border-0 bg-transparent p-0 w-100" />
                 </div>
               </div>
             </div>
             <div className="row mb-3">
-              <div className="col-6 d-flex align-items-center gap-2">
+              <div className="col-6 d-flex flex-column gap-1">
                 <label>Date</label>
-                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px', flex: 1 }}>
-                  <input type="date" className="form-control border-0 bg-transparent p-0 w-100" />
+                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px' }}>
+                  <input name="date" value={form.date} onChange={handleChange} type="date" className="form-control border-0 bg-transparent p-0 w-100" />
                 </div>
               </div>
-              <div className="col-6 d-flex align-items-center gap-2">
+              <div className="col-6 d-flex flex-column gap-1">
                 <label>Arrive time</label>
-                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px', flex: 1 }}>
-                  <input type="time" className="form-control border-0 bg-transparent p-0 w-100" />
+                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px' }}>
+                  <input name="arriveTime" value={form.arriveTime} onChange={handleChange} type="time" className="form-control border-0 bg-transparent p-0 w-100" />
                 </div>
               </div>
             </div>
             <div className="mt-2 d-flex justify-content-end">
-              <button style={{ backgroundColor: Colors.yellow, color: Colors.blue, border: 'none', borderRadius: '12px', padding: '8px 24px' }} className="fw-bold">
+              <button
+                onClick={handleRegister}
+                style={{ backgroundColor: Colors.yellow, color: Colors.blue, border: 'none', borderRadius: '12px', padding: '8px 24px' }}
+                className="fw-bold">
                 ลงทะเบียน
               </button>
             </div>
