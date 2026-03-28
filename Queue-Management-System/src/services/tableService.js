@@ -5,10 +5,22 @@ export const tableService = {
         const response = await api.get('/table.php/list');
         return response.data;
     },
+
+    // เพิ่มใน services/tableService.js
+    getTypes: async () => {
+        try {
+            const response = await api.get('/table.php/types');
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching table types:", error);
+            throw error;
+        }
+    },
+
     add: async (tableName, typeId) => {
-        const response = await api.post('/table.php/add', { 
-            table_name: tableName, 
-            type_id: typeId 
+        const response = await api.post('/table.php/add', {
+            table_name: tableName,
+            type_id: typeId
         });
         return response.data;
     }
