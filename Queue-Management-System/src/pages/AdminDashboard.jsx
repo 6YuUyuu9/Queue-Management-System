@@ -3,25 +3,25 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col, Card, Table, Form } from "react-bootstrap";
 
 function AdminDashboard() {
-  // 🔍 search
+  //  search
   const [search, setSearch] = useState("");
 
-  // 📋 mock queue data
+  //  mock queue data
   const [queues] = useState([
     { id: 1, name: "สมชาย", people: 2, status: "waiting" },
     { id: 2, name: "สมหญิง", people: 4, status: "processing" },
     { id: 3, name: "John", people: 3, status: "done" },
   ]);
 
-  // 👤 selected customer
+  //  selected customer
   const [selected, setSelected] = useState(null);
 
-  // 🔍 filter
+  //  filter
   const filteredQueues = queues.filter((q) =>
     q.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // 🎨 แปลงสถานะ
+  //  แปลงสถานะ
   const renderStatus = (status) => {
     if (status === "waiting")
       return <span className="badge bg-danger">รอดำเนินการ</span>;
@@ -40,7 +40,7 @@ function AdminDashboard() {
           <Col md={8}>
             <Card className="shadow border-0 mb-3">
               <Card.Body>
-                <h5 className="fw-bold mb-3">🔍 ค้นหาคิว</h5>
+                <h5 className="fw-bold mb-3"> ค้นหาคิว</h5>
                 <Form.Control
                   type="text"
                   placeholder="ค้นหาชื่อลูกค้า..."
@@ -50,10 +50,10 @@ function AdminDashboard() {
               </Card.Body>
             </Card>
 
-            {/* 📋 TABLE */}
+            {/*  TABLE */}
             <Card className="shadow border-0">
               <Card.Body>
-                <h5 className="fw-bold mb-3">📋 รายการคิว</h5>
+                <h5 className="fw-bold mb-3"> รายการคิว</h5>
                 <Table hover responsive>
                   <thead>
                     <tr>
@@ -90,11 +90,11 @@ function AdminDashboard() {
             </Card>
           </Col>
 
-          {/* 🔹 RIGHT SIDE */}
+          {/*  RIGHT SIDE */}
           <Col md={4}>
             <Card className="shadow border-0">
               <Card.Body>
-                <h5 className="fw-bold mb-3">👤 ข้อมูลลูกค้า</h5>
+                <h5 className="fw-bold mb-3"> ข้อมูลลูกค้า</h5>
 
                 {!selected ? (
                   <p className="text-muted">กรุณาเลือกคิวจากตาราง</p>
