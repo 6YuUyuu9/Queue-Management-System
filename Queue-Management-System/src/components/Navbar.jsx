@@ -9,7 +9,12 @@ const Navbar = () => {
         <div className="container-fluid px-4">
           <span
             style={{ color: Colors.yellow }}
-            className="navbar-brand fs-2 fw-bold">QQ</span>
+            className="navbar-brand fs-2 fw-bold">
+              QQ
+          </span>
+          <span className="fw-bold text-white">
+            ลงทะเบียนจองคิว
+          </span >
           <div className="navbar-nav ms-auto">
             <NavLink className="nav-link fw-bold" to="/signin">Sign In</NavLink>
             <span className="nav-link text-white">|</span>
