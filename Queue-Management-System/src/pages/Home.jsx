@@ -64,7 +64,7 @@ const Home = () => {
           <p
             style={{ color: Colors.blue, border: `2px solid ${Colors.yellow}`, borderRadius: '12px', padding: '0.1rem 5rem' }}
             className='fs-3 fw-bold text-center'>
-            {currentQueue ? `เบอร์ ${currentQueue.queue_id}` : 'ไม่มี'}
+            {currentQueue?.queue_name ?? 'ไม่มี'}
             <p className='fs-6'>
               {currentQueue ? `คิวก่อนหน้า ${currentQueue.queue_id - 1} คิว` : ''}
             </p>

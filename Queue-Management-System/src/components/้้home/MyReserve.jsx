@@ -53,7 +53,7 @@ const MyReserve = () => {
 
                         return (
                             <tr key={q.queue_id}>
-                                <td>{q.queue_id}</td>
+                                <td>{q.queue_name}</td>
                                 <td>{q.username}</td>
                                 <td>{reserveDate}</td>
                                 <td>{reserveTime}</td>
