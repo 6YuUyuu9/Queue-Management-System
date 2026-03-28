@@ -1,5 +1,7 @@
 import React from 'react'
 
+//http://localhost:5173/admin/Example2
+
 const Example2 = () => {
   return (
     <div>
