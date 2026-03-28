@@ -1,123 +1,82 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-function AdminDashboard() {
-  const [search, setSearch] = useState("");
+function AdminHome() {
+  const [data, setData] = useState({
+    total: 0,
+    done: 0,
+    processing: 0,
+    waiting: 0,
+  });
 
-  const [queues] = useState([
-    { id: 1, name: "สมชาย", people: 2, status: "waiting" },
-    { id: 2, name: "สมหญิง", people: 4, status: "processing" },
-    { id: 3, name: "John", people: 3, status: "done" },
-  ]);
+  const [today, setToday] = useState("");
 
-  const [selected, setSelected] = useState(null);
+  useEffect(() => {
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString("th-TH", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    setToday(formattedDate);
+  }, []);
 
-  const filteredQueues = queues.filter((q) =>
-    q.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const renderStatus = (status) => {
-    if (status === "waiting")
-      return <span className="badge bg-danger">รอดำเนินการ</span>;
-    if (status === "processing")
-      return <span className="badge bg-warning text-dark">กำลังดำเนินการ</span>;
-    if (status === "done")
-      return <span className="badge bg-success">ดำเนินการแล้ว</span>;
-  };
+  useEffect(() => {
+    // mock data
+    setData({
+      total: 120,
+      done: 70,
+      processing: 20,
+      waiting: 30,
+    });
+  }, []);
 
   return (
-    <div className="bg-light min-vh-100 p-3">
-      <div className="container-fluid">
+    <div className="bg-light min-vh-100 p-4">
+      <div className="container">
+
+        {/* Header */}
+        <div className="mb-4 text-center">
+          <h2 className="fw-bold">สรุปภาพรวมวันนี้</h2>
+          <p className="text-muted">{today}</p>
+        </div>
+
+        {/* Cards */}
         <div className="row">
 
-          {/* LEFT */}
-          <div className="col-md-8">
-
-            {/* SEARCH */}
-            <div className="card shadow mb-3 border-0">
+          <div className="col-md-3 mb-3">
+            <div className="card shadow border-0 text-center">
               <div className="card-body">
-                <h5 className="fw-bold mb-3"> ค้นหาคิว</h5>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="ค้นหาชื่อลูกค้า..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* TABLE */}
-            <div className="card shadow border-0">
-              <div className="card-body">
-                <h5 className="fw-bold mb-3"> รายการคิว</h5>
-
-                <div className="table-responsive">
-                  <table className="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>ชื่อ</th>
-                        <th>จำนวนที่นั่ง</th>
-                        <th>สถานะ</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredQueues.map((q, index) => (
-                        <tr
-                          key={q.id}
-                          style={{ cursor: "pointer" }}
-                          onClick={() =>
-                            setSelected({
-                              name: q.name,
-                              phone: "099-999-9999",
-                              total: 10,
-                              cancel: 2,
-                              success: 8,
-                            })
-                          }
-                        >
-                          <td>{index + 1}</td>
-                          <td>{q.name}</td>
-                          <td>{q.people} คน</td>
-                          <td>{renderStatus(q.status)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
+                <h6 className="text-muted">จำนวนคิวทั้งหมด</h6>
+                <h2 className="fw-bold text-primary">{data.total}</h2>
               </div>
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="col-md-4">
-            <div className="card shadow border-0">
+          <div className="col-md-3 mb-3">
+            <div className="card shadow border-0 text-center">
               <div className="card-body">
-                <h5 className="fw-bold mb-3"> ข้อมูลลูกค้า</h5>
+                <h6 className="text-muted">ดำเนินการแล้ว</h6>
+                <h2 className="fw-bold text-success">{data.done}</h2>
+              </div>
+            </div>
+          </div>
 
-                {!selected ? (
-                  <p className="text-muted">กรุณาเลือกคิวจากตาราง</p>
-                ) : (
-                  <>
-                    <p><b>ชื่อ:</b> {selected.name}</p>
-                    <p><b>เบอร์โทร:</b> {selected.phone}</p>
+          <div className="col-md-3 mb-3">
+            <div className="card shadow border-0 text-center">
+              <div className="card-body">
+                <h6 className="text-muted">กำลังดำเนินการ</h6>
+                <h2 className="fw-bold text-warning">{data.processing}</h2>
+              </div>
+            </div>
+          </div>
 
-                    <hr />
-
-                    <p><b>การจองทั้งหมด:</b> {selected.total}</p>
-                    <p>
-                      <b>ยกเลิก:</b>{" "}
-                      <span className="text-danger">{selected.cancel}</span>
-                    </p>
-                    <p>
-                      <b>สำเร็จ:</b>{" "}
-                      <span className="text-success">{selected.success}</span>
-                    </p>
-                  </>
-                )}
+          <div className="col-md-3 mb-3">
+            <div className="card shadow border-0 text-center">
+              <div className="card-body">
+                <h6 className="text-muted">รอดำเนินการ</h6>
+                <h2 className="fw-bold text-danger">{data.waiting}</h2>
               </div>
             </div>
           </div>
@@ -128,4 +87,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default AdminHome;
