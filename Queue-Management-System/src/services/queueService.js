@@ -99,5 +99,19 @@ export const queueService = {
             console.error("Error deleting queue:", error);
             throw error;
         }
+    },
+
+    findTable: async (date, arriveTime, personCount) => {
+    try {
+        const response = await api.post('/queue.php/find-table', {
+            date: date,
+            arrive_time: arriveTime,
+            person_count: personCount
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error finding table:", error);
+        throw error;
     }
+}
 };
