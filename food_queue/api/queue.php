@@ -63,6 +63,13 @@ if ($method === 'POST' && preg_match('#queue.php/arrive#', $url)) {
     exit();
 }
 
+// ข้ามคิว (Skip)
+if ($method === 'POST' && preg_match('#queue.php/skip#', $url)) {
+    $result = $queue->skipQueue($data['queue_id']);
+    echo json_encode(['success' => $result]);
+    exit();
+}
+
 // บันทึกเวลาที่เสร็จสิ้น
 if ($method === 'POST' && preg_match('#queue.php/complete#', $url)) {
     $result = $queue->markCompleted($data['queue_id']);
