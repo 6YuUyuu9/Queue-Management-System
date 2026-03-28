@@ -30,7 +30,6 @@ const Signin = () => {
                 </div>
 
                 <div className="mb-3">
-                   (username : user ; รหัส 1234)
                     <input
                         type="text"
                         name="username"

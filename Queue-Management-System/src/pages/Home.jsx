@@ -64,7 +64,7 @@ const Home = () => {
           <p
             style={{ color: Colors.blue, border: `2px solid ${Colors.yellow}`, borderRadius: '12px', padding: '0.1rem 5rem' }}
             className='fs-3 fw-bold text-center'>
-            {currentQueue ? `เบอร์ ${currentQueue.queue_id}` : 'ไม่มี'}
+            {currentQueue?.queue_name ?? 'ไม่มี'}
             <p className='fs-6'>
               {currentQueue ? `คิวก่อนหน้า ${currentQueue.queue_id - 1} คิว` : ''}
             </p>
@@ -75,7 +75,7 @@ const Home = () => {
           {/* บน */}
           <div className="d-flex gap-2 align-items-center">
             <label>ลงทะเบียนจองคิว</label>
-            <label className='fs-4'>สวัสดีคุณ สวยใจ ใจสวย</label>
+            <label className='fs-4'>สวัสดีคุณ {user?.username}</label>
           </div>
 
           {/* ล่าง */}
@@ -121,7 +121,7 @@ const Home = () => {
 
         <div>
           {/* ปุ่ม navbar อยู่บน */}
-          <div style={{ display: 'flex', gap: '16px', padding: '8px 12px' }}>
+          <div className='mt-4' style={{ display: 'flex', gap: '16px', padding: '8px 12px' }}>
             <button
               onClick={() => setActive('reserve')}
               style={{

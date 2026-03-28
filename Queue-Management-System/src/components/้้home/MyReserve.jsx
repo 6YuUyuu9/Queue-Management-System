@@ -28,7 +28,7 @@ const MyReserve = () => {
     }
 
     return (
-        <div style={{ background: Colors.lightGray, minHeight: '300px', padding: '0 18%' }}>
+        <div className=' pt-3' style={{ background: Colors.lightGray, minHeight: '300px', padding: '0 18%' }}>
             <table className="table table-bordered bg-white mt-3" style={{ borderRadius: '12px', overflow: 'hidden' }}>
                 <thead style={{ backgroundColor: Colors.yellow, color: Colors.blue }}>
                     <tr>
@@ -53,7 +53,7 @@ const MyReserve = () => {
 
                         return (
                             <tr key={q.queue_id}>
-                                <td>{q.queue_id}</td>
+                                <td>{q.queue_name}</td>
                                 <td>{q.username}</td>
                                 <td>{reserveDate}</td>
                                 <td>{reserveTime}</td>

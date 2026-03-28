@@ -24,7 +24,7 @@ const MyHistory = () => {
     }
 
     return (
-        <div style={{ background: Colors.lightGray, minHeight: '300px', padding: '0 18%' }}>
+        <div className='pt-3' style={{ background: Colors.lightGray, minHeight: '300px', padding: '0 18%' }}>
             <table className="table table-bordered bg-white mt-3" style={{ borderRadius: '12px', overflow: 'hidden' }}>
                 <thead style={{ backgroundColor: Colors.yellow, color: Colors.blue }}>
                     <tr>
@@ -42,7 +42,7 @@ const MyHistory = () => {
                         </tr>
                     ) : queues.map(q => (
                         <tr key={q.queue_id}>
-                            <td>{q.queue_id}</td>
+                            <td>{q.queue_name}</td>
                             <td>{q.reserve_date?.slice(0, 10)}</td>
                             <td>{q.person_count}</td>
                             <td>{q.table_name}</td>
