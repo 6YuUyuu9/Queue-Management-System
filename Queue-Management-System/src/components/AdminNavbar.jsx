@@ -24,14 +24,14 @@ const NAV_ITEMS = [
     end: false, 
     icon: <img src="/src/components/icon/bar-chart-line-fill.svg" width="20" />, 
     label: "จัดการคิว"  },
-  { to: "/admin/example1",  
+  { to: "/admin/managetable",  
     end: false, 
     icon: <img src="/src/components/icon/pencil-square.svg" width="20" />, 
-    label: "Example1"   },
-  // { to: "/admin/example2",  
-  //   end: false, 
-  //   icon: <img src="/src/components/icon/house-door-fill.svg" width="20" />, 
-  //   label: "Example2"   },
+    label: "จัดการโต๊ะ"   },
+  { to: "/admin/managequeue",  
+    end: false, 
+    icon: <img src="/src/components/icon/house-door-fill.svg" width="20" />, 
+    label: "จัดการคิว(Walk-in)"   },
 ];
 
 const AdminNavbar = () => {

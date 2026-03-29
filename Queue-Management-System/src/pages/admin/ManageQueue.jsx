@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { queueService } from '../../services/queueService';
 import { Colors } from '../../constant/colors';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function ManageQueue() {
   const [queues, setQueues] = useState([]);

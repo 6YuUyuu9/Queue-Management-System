@@ -24,12 +24,12 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
 
-        <Route path="/test-queue" element={<ManageQueue />} />
-        <Route path="/test-table" element={<ManageTable />} />
+        {/* <Route path="/test-queue" element={<ManageQueue />} />
+        <Route path="/test-table" element={<ManageTable />} /> */}
 
         <Route path="/admin" element={<ProtectedRoute><Example1 /></ProtectedRoute>}>
-          <Route path="Example2" element={<Example2 />} />
-          <Route path="manage-queue" element={<ManageQueue />} />
+          <Route path="managequeue" element={<ManageQueue />} />
+          <Route path="managetable" element={<ManageTable />} />
         </Route>
       </Routes>
     </>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { tableService } from '../../services/tableService';
 import { Colors } from '../../constant/colors';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function ManageTable() {
   const [tables, setTables] = useState([]);
