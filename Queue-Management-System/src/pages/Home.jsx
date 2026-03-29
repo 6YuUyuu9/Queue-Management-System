@@ -25,24 +25,35 @@ const Home = () => {
 
   const handleRegister = async () => {
     try {
+      // 1. หาโต๊ะที่ว่างตามวันและเวลาที่เลือก
       const tableResult = await queueService.findTable(form.date, form.arriveTime, form.personCount);
-      console.log('tableResult:', tableResult);  // ดูตรงนี้
+      console.log('tableResult:', tableResult);
 
       if (!tableResult.success) {
         alert(tableResult.message);
         return;
       }
 
-      const result = await queueService.add(userId, tableResult.table.table_id, form.personCount);
-      console.log('result:', result);  // ดูตรงนี้ด้วย
+      // 2. จองคิว (ส่งวันที่และเวลาที่คุณเลือกจาก form ไปด้วย!)
+      const result = await queueService.add(
+        userId, 
+        tableResult.table.table_id, 
+        form.personCount,
+        form.date,        // <--- เพิ่มตัวที่ 4: วันที่
+        form.arriveTime   // <--- เพิ่มตัวที่ 5: เวลา
+      );
+
+      console.log('result:', result);
 
       if (result.success) {
         alert(`จองคิวสำเร็จ! โต๊ะ: ${tableResult.table.table_name}`);
+        // อาจจะเพิ่ม window.location.href = '/my-reserve' เพื่อไปดูหน้าคิวที่จอง
       }
     } catch (error) {
       console.error('เกิดข้อผิดพลาด:', error);
+      alert('ไม่สามารถจองคิวได้ในขณะนี้');
     }
-  }
+}
 
   useEffect(() => {
     queueService.getAll().then(data => {
