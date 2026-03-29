@@ -6,8 +6,8 @@ import { useAuth } from "../context/useAuth";
 import { Colors } from "../constant/colors";
 import AdminHome from "../pages/admin/AdminHome";
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import Example1 from "../pages/admin/Example1";
-import Example2 from "../pages/admin/Example2";
+import ManageQueue from "../pages/admin/ManageQueue";
+import ManageTable from "../pages/admin/ManageTable";
 import AdminRoute from "./AdminRoute";
 
 const COLLAPSED_WIDTH = "64px";
@@ -256,8 +256,8 @@ const AdminNavbar = () => {
         <Routes>
           <Route path="/admin"           element={<AdminRoute><AdminHome /></AdminRoute>} />
           <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-          <Route path="/admin/example1"  element={<AdminRoute><Example1 /></AdminRoute>} />
-          <Route path="/admin/example2"  element={<AdminRoute><Example2 /></AdminRoute>} />
+          <Route path="/admin/managequeue" element={<AdminRoute><ManageQueue /></AdminRoute>} />
+          <Route path="/admin/managetable" element={<AdminRoute><ManageTable /></AdminRoute>} />
         </Routes>
       </div>
 
