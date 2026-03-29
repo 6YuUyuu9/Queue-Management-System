@@ -1,72 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Colors } from '../constant/colors'
-import MyReserve from '../components/้้home/MyReserve'
-import MyHistory from '../components/้้home/MyHistory'
-import { useState } from 'react'
+import MyReserve from '../components/home/MyReserve'
+import MyHistory from '../components/home/MyHistory'
+import QueueForm from '../components/home/QueueForm'
 import { queueService } from '../services/queueService'
-import { useEffect } from 'react'
-import { useAuth } from '../context/useAuth'
 
 const Home = () => {
   const [active, setActive] = useState('reserve')
   const [currentQueue, setCurrentQueue] = useState(null)
-  const [form, setForm] = useState({
-    phone: '',
-    personCount: '',
-    date: '',
-    arriveTime: ''
-  })
-  const { user } = useAuth()
-  const userId = user?.user_id
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
-
-  const handleRegister = async () => {
-    try {
-      // 1. หาโต๊ะที่ว่างตามวันและเวลาที่เลือก
-      const tableResult = await queueService.findTable(form.date, form.arriveTime, form.personCount);
-      console.log('tableResult:', tableResult);
-
-      if (!tableResult.success) {
-        alert(tableResult.message);
-        return;
-      }
-
-      // 2. จองคิว (ส่งวันที่และเวลาที่คุณเลือกจาก form ไปด้วย!)
-      const result = await queueService.add(
-        userId, 
-        tableResult.table.table_id, 
-        form.personCount,
-        form.date,        // <--- เพิ่มตัวที่ 4: วันที่
-        form.arriveTime   // <--- เพิ่มตัวที่ 5: เวลา
-      );
-
-      console.log('result:', result);
-
-      if (result.success) {
-        alert(`จองคิวสำเร็จ! โต๊ะ: ${tableResult.table.table_name}`);
-        // อาจจะเพิ่ม window.location.href = '/my-reserve' เพื่อไปดูหน้าคิวที่จอง
-      }
-    } catch (error) {
-      console.error('เกิดข้อผิดพลาด:', error);
-      alert('ไม่สามารถจองคิวได้ในขณะนี้');
-    }
-}
 
   useEffect(() => {
     queueService.getAll().then(data => {
       const today = new Date().toISOString().slice(0, 10)
 
-      // หาคิวที่มี arrive_at วันนี้ เรียงล่าสุดก่อน
-      const todayArrived = data
-        .filter(q => q.arrive_at?.slice(0, 10) === today)
-        .sort((a, b) => new Date(b.arrive_at) - new Date(a.arrive_at))
+      const todayQueues = data
+        .filter(q => q.reserve_date?.slice(0, 10) === today && q.status_id === '1')
+        .sort((a, b) => {
+          const timeDiff = new Date(b.reserve_date) - new Date(a.reserve_date)
+          if (timeDiff !== 0) return timeDiff
+          return Number(b.queue_id) - Number(a.queue_id)
+        })
 
-      setCurrentQueue(todayArrived[0] || null)
+      setCurrentQueue(todayQueues[0] || null)
     })
   }, [])
+
   return (
     <div>
       <div style={{ padding: '0 17%' }}>
@@ -77,61 +35,14 @@ const Home = () => {
             className='fs-3 fw-bold text-center'>
             {currentQueue?.queue_name ?? 'ไม่มี'}
             <p className='fs-6'>
-              {currentQueue ? `คิวก่อนหน้า ${currentQueue.queue_id - 1} คิว` : ''}
+              {currentQueue ? `คิวหลังจากนี้ ${currentQueue.queue_id - 1} คิว` : ''}
             </p>
           </p>
         </div>
-        <div className="d-flex flex-column gap-2 container mt-4">
 
-          {/* บน */}
-          <div className="d-flex gap-2 align-items-center">
-            <label>ลงทะเบียนจองคิว</label>
-            <label className='fs-4'>สวัสดีคุณ {user?.username}</label>
-          </div>
-
-          {/* ล่าง */}
-          <div style={{ backgroundColor: Colors.lightGray, borderRadius: '16px', padding: '1.5rem' }}>
-            <div className="row mb-3">
-              <div className="col-6 d-flex flex-column gap-1">
-                <label>Phone</label>
-                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px' }}>
-                  <input name="phone" value={form.phone} onChange={handleChange} type="text" className="form-control border-0 bg-transparent p-0 w-100" />
-                </div>
-              </div>
-              <div className="col-6 d-flex flex-column gap-1">
-                <label>Number of People</label>
-                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px' }}>
-                  <input name="personCount" value={form.personCount} onChange={handleChange} type="number" className="form-control border-0 bg-transparent p-0 w-100" />
-                </div>
-              </div>
-            </div>
-            <div className="row mb-3">
-              <div className="col-6 d-flex flex-column gap-1">
-                <label>Date</label>
-                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px' }}>
-                  <input name="date" value={form.date} onChange={handleChange} type="date" className="form-control border-0 bg-transparent p-0 w-100" />
-                </div>
-              </div>
-              <div className="col-6 d-flex flex-column gap-1">
-                <label>Arrive time</label>
-                <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '6px 12px' }}>
-                  <input name="arriveTime" value={form.arriveTime} onChange={handleChange} type="time" className="form-control border-0 bg-transparent p-0 w-100" />
-                </div>
-              </div>
-            </div>
-            <div className="mt-2 d-flex justify-content-end">
-              <button
-                onClick={handleRegister}
-                style={{ backgroundColor: Colors.yellow, color: Colors.blue, border: 'none', borderRadius: '12px', padding: '8px 24px' }}
-                className="fw-bold">
-                ลงทะเบียน
-              </button>
-            </div>
-          </div>
-        </div>
+        <QueueForm />
 
         <div>
-          {/* ปุ่ม navbar อยู่บน */}
           <div className='mt-4' style={{ display: 'flex', gap: '16px', padding: '8px 12px' }}>
             <button
               onClick={() => setActive('reserve')}
@@ -164,7 +75,6 @@ const Home = () => {
       <div>
         {active === 'reserve' ? <MyReserve /> : <MyHistory />}
       </div>
-
     </div>
   )
 }

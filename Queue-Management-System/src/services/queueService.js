@@ -23,22 +23,22 @@ export const queueService = {
      * @param {string} date - วันที่จากหน้าจอ (เช่น "2026-03-29")
      * @param {string} time - เวลาจากหน้าจอ (เช่น "16:41" หรือ "04:41 PM")
      */
-    add: async (userId, tableId, personCount, date, time) => {
-        try {
-            // ส่งค่า date และ time แยกกันไปเลย เพราะเราเขียน PHP ให้รองรับการ Merge แล้ว
-            const response = await api.post('/queue.php/add', {
-                user_id: userId,
-                table_id: tableId,
-                person_count: personCount,
-                date: date,  // เพิ่มฟิลด์วันที่
-                time: time   // เพิ่มฟิลด์เวลา
-            });
-            return response.data;
-        } catch (error) {
-            console.error("Error adding queue:", error);
-            throw error;
-        }
-    },
+   add: async (userId, tableId, personCount, date, time) => {
+    try {
+        console.log('add params:', { userId, tableId, personCount, date, time })
+        const response = await api.post('/queue.php/add', {
+            user_id: userId,
+            table_id: tableId,
+            person_count: personCount,
+            date: date,
+            time: time
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error adding queue:", error);
+        throw error;
+    }
+},
 
     // ตัวอย่างฟังก์ชันใน queueService.js
     update: async (queueId, tableId, personCount) => {
