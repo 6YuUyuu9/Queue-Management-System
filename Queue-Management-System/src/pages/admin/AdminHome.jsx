@@ -100,7 +100,6 @@ function AdminHome() {
   
   const roleBadge = (role) =>
     role === "admin"
-      : <span className="badge bg-secondary">User</span>;
       ? <span className="badge" style={{ backgroundColor:"#FCC402" ,color:"black"}}>Admin</span>
       : <span className="badge" style={{ backgroundColor:"#003666" ,color:"white"}}>User</span>;
 
