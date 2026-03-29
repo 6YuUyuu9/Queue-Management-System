@@ -7,11 +7,24 @@ const MyReserve = () => {
     const { user } = useAuth()
     const [queues, setQueues] = useState([])
 
-    useEffect(() => {
+    const fetchQueues = () => {
         queueService.getAll().then(data => {
-            const active = data.filter(q => q.status_id !== '3' && q.user_id === String(user?.user_id))
+            console.log('all data:', data)
+            console.log('user_id:', user?.user_id)
+            const active = data.filter(q =>
+                q.status_id !== '3' &&
+                q.status_id !== '4' &&
+                q.user_id === String(user?.user_id)
+            )
+            console.log('filtered:', active)
             setQueues(active)
         })
+    }
+
+    useEffect(() => {
+        fetchQueues()
+        window.addEventListener('focus', fetchQueues)
+        return () => window.removeEventListener('focus', fetchQueues)
     }, [user])
 
     const isToday = (dateStr) => {
@@ -28,23 +41,25 @@ const MyReserve = () => {
     }
 
     return (
-        <div className=' pt-3' style={{ background: Colors.lightGray, minHeight: '300px', padding: '0 18%' }}>
-            <table className="table table-bordered bg-white mt-3" style={{ borderRadius: '12px', overflow: 'hidden' }}>
-                <thead style={{ backgroundColor: Colors.yellow, color: Colors.blue }}>
+        <div className='pt-3' style={{ background: Colors.lightGray, minHeight: '300px', padding: '0 18%' }}>
+            <table className="table table-borderless bg-transparent mt-3" style={{ borderRadius: '5px', overflow: 'hidden' }}>
+                <thead>
                     <tr>
-                        <th>รหัสคิว</th>
-                        <th>ชื่อผู้จอง</th>
-                        <th>วันที่</th>
-                        <th>เวลา</th>
-                        <th>จำนวนที่นั่ง</th>
-                        <th>คิวก่อนหน้า</th>
+                        <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>รหัสคิว</th>
+                        <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>ชื่อผู้จอง</th>
+                        <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>วันที่จอง</th>
+                        <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>เวลา</th>
+                        <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>จำนวนที่นั่ง</th>
+                        <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>โต๊ะ</th>
+                        <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>คิวก่อนหน้า</th>
+                        <th style={{ backgroundColor: Colors.blue }}></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {queues.length === 0 ? (
                         <tr>
-                            <td colSpan={7} className="text-center text-muted">ไม่มีข้อมูลคิว</td>
+                            <td colSpan={8} className="text-center text-muted">ไม่มีข้อมูลคิว</td>
                         </tr>
                     ) : queues.map(q => {
                         const reserveDate = q.reserve_date?.slice(0, 10)
@@ -52,20 +67,36 @@ const MyReserve = () => {
                         const today = isToday(q.reserve_date)
 
                         return (
-                            <tr key={q.queue_id}>
+                            <tr key={q.queue_id} style={{ backgroundColor: 'transparent' }}>
                                 <td>{q.queue_name}</td>
                                 <td>{q.username}</td>
                                 <td>{reserveDate}</td>
                                 <td>{reserveTime}</td>
                                 <td>{q.person_count}</td>
+                                <td>{q.table_name}</td>
                                 <td>{today ? countQueueBefore(q) : '-'}</td>
-                                <td>
+                                <td style={{ position: 'relative' }}>
                                     {!today && (
-                                        <button
-                                            style={{ backgroundColor: 'tomato', color: 'white', border: 'none', borderRadius: '8px', padding: '4px 12px' }}
-                                            onClick={() => queueService.updateStatus(q.queue_id, 2)}>
-                                            ยกเลิก
-                                        </button>
+                                        <div className="dropdown">
+                                            <button
+                                                className="btn btn-sm"
+                                                style={{ background: 'none', border: 'none', fontSize: '18px', cursor: 'pointer' }}
+                                                data-bs-toggle="dropdown">
+                                                ⋮
+                                            </button>
+                                            <ul className="dropdown-menu">
+                                                <li>
+                                                    <button
+                                                        className="dropdown-item text-danger"
+                                                        onClick={async () => {
+                                                            await queueService.updateStatus(q.queue_id, 4)
+                                                            setQueues(prev => prev.filter(item => item.queue_id !== q.queue_id))
+                                                        }}>
+                                                        ยกเลิก
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     )}
                                 </td>
                             </tr>

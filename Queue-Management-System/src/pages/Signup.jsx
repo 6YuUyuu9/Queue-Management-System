@@ -13,7 +13,17 @@ const Signup = () => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
 
+    const validatePassword = (password) => {
+        if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/.test(password)) return null
+        return 'รหัสผ่านต้องมีตัวพิมพ์เล็ก ตัวพิมพ์ใหญ่ ตัวเลข และอย่างน้อย 8 ตัวอักษร'
+    }
+
     const handleSubmit = async () => {
+        const passwordError = validatePassword(form.password)
+        if (passwordError) {
+            setError(passwordError)
+            return
+        }
         if (form.password !== form.confirm) {
             setError('รหัสผ่านไม่ตรงกัน')
             return

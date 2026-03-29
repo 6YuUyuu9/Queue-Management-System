@@ -17,19 +17,16 @@ const QueueForm = () => {
     }
 
     const handleRegister = async () => {
-        // validate ครบทุกช่อง
         if (!form.personCount || !form.date || !form.arriveTime) {
             alert('กรุณากรอกข้อมูลให้ครบทุกช่อง')
             return
         }
 
-        // validate จำนวนคน 1-6
         if (form.personCount < 1 || form.personCount > 6) {
             alert('จำนวนคนต้องอยู่ระหว่าง 1-6 คน')
             return
         }
 
-        // validate วันที่และเวลาต้องไม่เป็นอดีต
         const selectedDateTime = new Date(`${form.date}T${form.arriveTime}`)
         if (selectedDateTime < new Date()) {
             alert('ไม่สามารถจองวันและเวลาที่ผ่านมาแล้วได้')
@@ -55,6 +52,7 @@ const QueueForm = () => {
             if (result.success) {
                 alert(`จองคิวสำเร็จ! โต๊ะ: ${tableResult.table.table_name}`)
                 setForm({ personCount: '', date: '', arriveTime: '' })
+                localStorage.setItem('queue-updated', Date.now())
             }
         } catch (error) {
             console.error('เกิดข้อผิดพลาด:', error)
