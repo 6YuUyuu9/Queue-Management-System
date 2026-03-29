@@ -118,5 +118,16 @@ export const queueService = {
         console.error("Error finding table:", error);
         throw error;
     }
+},
+
+getSummary: async (date = null) => {
+    try {
+        const params = date ? `?date=${date}` : ''
+        const response = await api.get(`/queue.php/summary${params}`)
+        return response.data
+    } catch (error) {
+        console.error("Error fetching summary:", error)
+        throw error
+    }
 }
 };

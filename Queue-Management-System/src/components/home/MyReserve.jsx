@@ -41,7 +41,6 @@ const MyReserve = () => {
                         <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>จำนวนที่นั่ง</th>
                         <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>โต๊ะ</th>
                         <th style={{ backgroundColor: Colors.blue }}></th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
