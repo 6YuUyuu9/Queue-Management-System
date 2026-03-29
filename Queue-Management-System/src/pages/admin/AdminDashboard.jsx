@@ -36,10 +36,10 @@ function AdminDashboard() {
   };
 
   const renderStatus = (status_id, status_name) => {
-    if (status_id === 1) return <span className="badge bg-warning text-dark">{status_name || "จองแล้ว"}</span>;
-    if (status_id === 2) return <span className="badge bg-secondary">{status_name || "ข้าม"}</span>;
-    if (status_id === 3) return <span className="badge bg-success">{status_name || "เสร็จแล้ว"}</span>;
-    if (status_id === 4) return <span className="badge bg-danger">{status_name || "ยกเลิก"}</span>;
+    if (status_id === 1) return <span className="badge text-dark">{status_name || "จองแล้ว"}</span>;
+    if (status_id === 2) return <span className="badge text-secondary">{status_name || "ข้าม"}</span>;
+    if (status_id === 3) return <span className="badge text-success">{status_name || "เสร็จแล้ว"}</span>;
+    if (status_id === 4) return <span className="badge text-danger">{status_name || "ยกเลิก"}</span>;
     return <span className="badge bg-light text-dark">{status_name || "-"}</span>;
   };
 
@@ -71,7 +71,7 @@ function AdminDashboard() {
             fontWeight: "600", borderRadius: "8px", border: "none", fontSize: "13px",
           }}
         >
-          ← กลับ
+          <img src="/src/components/icon/arrow-left-square-fill.svg" width="30" />
         </button>
 
         <h5 className="fw-bold mb-3" style={{ color: Colors.blue, fontSize: "clamp(15px, 2vw, 17px)" }}>
@@ -80,7 +80,7 @@ function AdminDashboard() {
 
         {!selected ? (
           <div className="text-center py-4">
-            <div style={{ fontSize: "2rem", marginBottom: "8px" }}>📋</div>
+            <div style={{ fontSize: "2rem", marginBottom: "8px" }}><img src="/src/components/icon/book-fill.svg" width="40" /></div>
             <p className="text-muted mb-0" style={{ fontSize: "14px" }}>กรุณาเลือกคิวจากรายการ</p>
           </div>
         ) : (
@@ -95,7 +95,7 @@ function AdminDashboard() {
                 { label: "จำนวนคน",    value: `${selected.person_count} คน` },
               ].map(r => (
                 <div key={r.label} className="col-6 col-lg-12">
-                  <div style={{ fontSize: "11px", color: "#999" }}>{r.label}</div>
+                  <div style={{ fontSize: "11px", color: "#999999" }}>{r.label}</div>
                   <div className="fw-semibold" style={{ fontSize: "14px" }}>{r.value}</div>
                 </div>
               ))}
@@ -104,7 +104,7 @@ function AdminDashboard() {
             <hr style={{ borderColor: Colors.yellow, opacity: 1 }} />
 
             <div className="mb-2">
-              <div style={{ fontSize: "11px", color: "#999" }}>สถานะ</div>
+              <div style={{ fontSize: "11px", color: "#999999" }}>สถานะ</div>
               <div className="mt-1">{renderStatus(selected.status_id, selected.status_name)}</div>
             </div>
 
@@ -115,7 +115,7 @@ function AdminDashboard() {
                 { label: "เวลาเสร็จสิ้น", value: formatDate(selected.complete_at) },
               ].map(r => (
                 <div key={r.label} className="col-12">
-                  <div style={{ fontSize: "11px", color: "#999" }}>{r.label}</div>
+                  <div style={{ fontSize: "11px", color: "#999999" }}>{r.label}</div>
                   <div style={{ fontSize: "13px" }}>{r.value}</div>
                 </div>
               ))}
@@ -176,12 +176,12 @@ function AdminDashboard() {
                     <table className="table table-hover align-middle mb-0" style={{ minWidth: "320px" }}>
                       <thead style={{ backgroundColor: Colors.blue }}>
                         <tr>
-                          <th style={{ color: "#000000", fontWeight: "500", fontSize: "13px", width: "40px" }}>#</th>
+                          <th style={{ color: "#000000", fontWeight: "500", fontSize: "13px", width: "40px" }}>ที่</th>
                           <th style={{ color: "#000000", fontWeight: "500", fontSize: "13px" }}>ผู้ใช้</th>
                           <th className="d-none d-sm-table-cell" style={{ color: "#000000", fontWeight: "500", fontSize: "13px" }}>โต๊ะ</th>
                           <th className="d-none d-lg-table-cell" style={{ color: "#000000", fontWeight: "500", fontSize: "13px" }}>ประเภท</th>
                           <th className="d-none d-sm-table-cell" style={{ color: "#000000", fontWeight: "500", fontSize: "13px" }}>จำนวน</th>
-                          <th style={{ color: Colors.yellow, fontWeight: "500", fontSize: "13px" }}>สถานะ</th>
+                          <th style={{ color: "#000000", fontWeight: "500", fontSize: "13px" }}>สถานะ</th>
                         </tr>
                       </thead>
                       <tbody>
