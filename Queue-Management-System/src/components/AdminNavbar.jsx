@@ -14,10 +14,24 @@ const COLLAPSED_WIDTH = "64px";
 const EXPANDED_WIDTH  = "220px";
 
 const NAV_ITEMS = [
-  { to: "/admin",           end: true,  icon: "🏠", label: "หน้าหลัก"   },
-  { to: "/admin/dashboard", end: false, icon: "📋", label: "จัดการคิว"  },
-  { to: "/admin/example1",  end: false, icon: "📄", label: "Example1"   },
-  { to: "/admin/example2",  end: false, icon: "📄", label: "Example2"   },
+  {
+  to: "/admin",
+  end: true,
+  icon: <img src="/src/components/icon/house-door-fill.svg" width="20" />,
+  label: "หน้าหลัก"
+},
+  { to: "/admin/dashboard", 
+    end: false, 
+    icon: <img src="/src/components/icon/bar-chart-line-fill.svg" width="20" />, 
+    label: "จัดการคิว"  },
+  { to: "/admin/example1",  
+    end: false, 
+    icon: <img src="/src/components/icon/pencil-square.svg" width="20" />, 
+    label: "Example1"   },
+  // { to: "/admin/example2",  
+  //   end: false, 
+  //   icon: <img src="/src/components/icon/house-door-fill.svg" width="20" />, 
+  //   label: "Example2"   },
 ];
 
 const AdminNavbar = () => {
@@ -67,7 +81,7 @@ const AdminNavbar = () => {
           position: "fixed",
           top: 0, left: 0,
           zIndex: 200,
-          backgroundColor: "#fff",
+          backgroundColor: "#ffff",
           borderRight: `3px solid ${Colors.yellow}`,
           boxShadow: "2px 0 8px rgba(0,0,0,0.07)",
           display: "flex",
@@ -90,14 +104,15 @@ const AdminNavbar = () => {
             flexShrink: 0,
           }}
         >
+          <div style={{ color: Colors.yellow, fontWeight: "700", fontSize: "16px" }}>QQ</div>
+
           {!collapsed && (
             <div>
-              <div style={{ color: Colors.yellow, fontWeight: "700", fontSize: "16px" }}>🍽️ QQ</div>
               <div style={{ color: "rgba(255,255,255,0.55)", fontSize: "10px" }}>Admin Panel</div>
             </div>
           )}
           {collapsed && (
-            <div style={{ color: Colors.yellow, fontWeight: "700", fontSize: "18px" }}>🍽️</div>
+            <div style={{ color: Colors.yellow, fontWeight: "700", fontSize: "18px" }}></div>
           )}
           <button
             onClick={() => setCollapsed(c => !c)}
@@ -129,7 +144,7 @@ const AdminNavbar = () => {
             }}
             title="ขยาย sidebar"
           >
-            ›
+            <img src="/src/components/icon/caret-right-fill.svg" width="20" />
           </button>
         )}
 
@@ -144,7 +159,7 @@ const AdminNavbar = () => {
             }}
             title="ย่อ sidebar"
           >
-            ‹ ย่อ
+            <img src="/src/components/icon/caret-left-fill.svg" width="15" />
           </button>
         )}
 
