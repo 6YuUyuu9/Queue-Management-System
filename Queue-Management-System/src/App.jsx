@@ -15,15 +15,16 @@ import AdminNavbar from './components/AdminNavbar'
 function App() {
   return (
     <>
-      <Navbar />
+    <AdminDashboard/>
+      {/* <Navbar />
       <Routes>
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<ProtectedRoute><Example1 /></ProtectedRoute>}>
-          <Route path="Example2" element={<Example2 />} />
+        <Route path="Example2" element={<Example2 />} />
         </Route>
-      </Routes>
+      </Routes> */}
     </>
   )
 }
