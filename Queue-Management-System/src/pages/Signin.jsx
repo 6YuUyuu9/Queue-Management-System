@@ -4,7 +4,7 @@ import { useAuth } from '../context/useAuth'
 import { useNavigate } from 'react-router-dom'
 
 const Signin = () => {
-    const { login } = useAuth()
+    const { login} = useAuth()
     const navigate = useNavigate()
     const [form, setForm] = useState({ username: '', password: '' })
     const [error, setError] = useState('')
@@ -14,13 +14,17 @@ const Signin = () => {
     }
 
     const handleSubmit = async () => {
-        const success = await login(form.username, form.password)
-        if (success) {
-            navigate('/')
+    const loggedInUser = await login(form.username, form.password)  // รับ user กลับมาเลย
+    if (loggedInUser) {
+        if (loggedInUser.role === 'admin') {
+            navigate('/admin')
         } else {
-            setError('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
+            navigate('/')
         }
+    } else {
+        setError('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
     }
+}
 
     return (
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f5f5f5' }}>
@@ -56,7 +60,7 @@ const Signin = () => {
                     style={{ color: Colors.blue, backgroundColor: Colors.yellow, border: 'none' }}
                     className="btn w-100 py-2">
                     เข้าสู่ระบบ
-                   
+
                 </button>
 
                 <p className="mt-3 text-center text-muted" style={{ fontSize: '14px' }}>

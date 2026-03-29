@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom' 
 import Navbar from './components/Navbar'
 import Admin from './pages/Admin'
 import Home from './pages/Home'
@@ -17,9 +17,19 @@ function App() {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/admin" element={<ProtectedRoute><Example1 /></ProtectedRoute>}>
-          <Route path="Example2" element={<Example2 />} />
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <Example1 />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Navigate to="example2" replace />} />
+          <Route path="example2" element={<Example2 />} />
         </Route>
+
       </Routes>
     </>
   )

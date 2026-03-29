@@ -14,9 +14,9 @@ export function AuthProvider({ children }) {
         if (data.success) {
             setUser(data.user)
             localStorage.setItem('user', JSON.stringify(data.user))
-            return true
+            return data.user  // ✅ return user แทน true
         }
-        return false
+        return null  // แทน false
     }
 
     const register = async (username, password) => {
