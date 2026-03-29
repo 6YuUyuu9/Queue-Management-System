@@ -23,15 +23,15 @@ const NAV_ITEMS = [
   { to: "/admin/dashboard", 
     end: false, 
     icon: <img src="/src/components/icon/bar-chart-line-fill.svg" width="20" />, 
-    label: "จัดการคิว"  },
+    label: "รายการคิว"  },
   { to: "/admin/example1",  
     end: false, 
     icon: <img src="/src/components/icon/pencil-square.svg" width="20" />, 
-    label: "Example1"   },
-  // { to: "/admin/example2",  
-  //   end: false, 
-  //   icon: <img src="/src/components/icon/house-door-fill.svg" width="20" />, 
-  //   label: "Example2"   },
+    label: "จัดการคิว"   },
+  { to: "/admin/example2",  
+    end: false, 
+    icon: <img src="/src/components/icon/pencil-square.svg" width="20" />, 
+    label: "จัดการโต๊ะ"   }
 ];
 
 const AdminNavbar = () => {
