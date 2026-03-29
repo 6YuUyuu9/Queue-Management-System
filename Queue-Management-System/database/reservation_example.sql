@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2026 at 01:00 PM
+-- Generation Time: Mar 29, 2026 at 07:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -29,23 +29,29 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `queue` (
   `queue_id` int(11) NOT NULL,
+  `queue_name` varchar(10) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `table_id` int(11) NOT NULL,
   `person_count` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
-  `reserve_date` datetime DEFAULT current_timestamp(),
+  `reserve_date` datetime DEFAULT NULL,
   `arrive_at` datetime DEFAULT NULL,
   `complete_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Truncate table before insert `queue`
+--
+
+TRUNCATE TABLE `queue`;
+--
 -- Dumping data for table `queue`
 --
 
-INSERT INTO `queue` (`queue_id`, `user_id`, `table_id`, `person_count`, `status_id`, `reserve_date`, `arrive_at`, `complete_at`) VALUES
-(1, 3, 1, 2, 1, '2026-03-28 17:37:57', '2026-03-28 18:25:10', NULL),
-(2, 4, 2, 2, 1, '2026-03-28 18:18:03', '2026-03-28 18:25:29', NULL),
-(3, 5, 3, 4, 3, '2026-03-28 18:18:56', '2026-03-28 18:24:23', '2026-03-28 18:27:16');
+INSERT INTO `queue` (`queue_id`, `queue_name`, `user_id`, `table_id`, `person_count`, `status_id`, `reserve_date`, `arrive_at`, `complete_at`) VALUES
+(1, 'A01', 1, 1, 2, 1, '2026-03-31 12:40:00', NULL, NULL),
+(2, 'A02', 2, 2, 4, 1, '2026-03-31 13:44:00', NULL, NULL),
+(3, 'B01', 3, 3, 6, 1, '2026-03-31 03:44:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -58,6 +64,11 @@ CREATE TABLE `status` (
   `status_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `status`
+--
+
+TRUNCATE TABLE `status`;
 --
 -- Dumping data for table `status`
 --
@@ -80,13 +91,21 @@ CREATE TABLE `tables` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Truncate table before insert `tables`
+--
+
+TRUNCATE TABLE `tables`;
+--
 -- Dumping data for table `tables`
 --
 
 INSERT INTO `tables` (`table_id`, `table_name`, `type_id`) VALUES
-(1, 'A01', 1),
-(2, 'A2', 1),
-(3, 'A3', 3);
+(1, 'A1', 1),
+(2, 'A2', 2),
+(3, 'A3', 3),
+(4, 'B1', 1),
+(5, 'B2', 2),
+(6, 'B3', 3);
 
 -- --------------------------------------------------------
 
@@ -99,6 +118,11 @@ CREATE TABLE `table_type` (
   `type_name` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Truncate table before insert `table_type`
+--
+
+TRUNCATE TABLE `table_type`;
 --
 -- Dumping data for table `table_type`
 --
@@ -123,15 +147,18 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Truncate table before insert `users`
+--
+
+TRUNCATE TABLE `users`;
+--
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `role`, `create_at`) VALUES
-(1, 'testuser', '$2y$10$AII6JkR9X.QGcQlXkvpBqOdmIeu6Y0ULAUHvg1E2Xy3G2uBsnXKjq', 'user', '2026-03-28 17:16:52'),
-(2, '', '$2y$10$IFvEBKZvbbOtPMjbf3KAyOtsE0sqar2ces9Iz/SCPvRutaKfxY7Qe', 'user', '2026-03-28 17:37:18'),
-(3, 'yuuyuu', '$2y$10$QW8zAszxTMP.9z0IlLHtJuDdDko9YQPN79u6mn7sqAsl75Z8ggKNe', 'user', '2026-03-28 17:37:22'),
-(4, 'member1', '$2y$10$z1banvMlAz9umLPOFZVE8ebGguR.XEk8AkhRzrR78dQ80v2ImDLNe', 'user', '2026-03-28 18:17:29'),
-(5, 'member2', '$2y$10$Lil57KwXDgsRG4PEixS5x.r6OdRq9prkLlf/hFU7LQmiMc/HD8mZG', 'user', '2026-03-28 18:18:30');
+(1, 'admin_grace', '1234', 'admin', '2026-03-30 00:39:03'),
+(2, 'somchai', '1234', 'user', '2026-03-30 00:39:03'),
+(3, 'witoon', '1234', 'user', '2026-03-30 00:39:03');
 
 --
 -- Indexes for dumped tables
@@ -184,13 +211,13 @@ ALTER TABLE `queue`
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
-  MODIFY `table_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `table_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
