@@ -15,7 +15,8 @@ import AdminNavbar from './components/AdminNavbar'
 function App() {
   return (
     <>
-      <Navbar />
+    <AdminDashboard/>
+      {/* <Navbar />
       <Routes>
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/signin" element={<Signin />} />
