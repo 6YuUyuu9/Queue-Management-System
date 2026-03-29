@@ -53,7 +53,6 @@ const MyReserve = () => {
                         <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>โต๊ะ</th>
                         <th className="fw-bold" style={{ backgroundColor: Colors.blue, color: 'white' }}>คิวก่อนหน้า</th>
                         <th style={{ backgroundColor: Colors.blue }}></th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
