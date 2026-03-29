@@ -91,17 +91,17 @@ function AdminHome() {
   };
 
   const queueCards = [
-    { label: "คิวทั้งหมด",   value: queueData.total,    color: Colors.blue,  bg: "#e8f0fe" },
-    { label: "รอดำเนินการ", value: queueData.waiting,   color: "#b45309",    bg: "#fef9c3" },
-    { label: "ข้ามคิว",      value: queueData.skipped,  color: "#555",       bg: "#f3f4f6" },
-    { label: "เสร็จแล้ว",   value: queueData.done,      color: "#166534",    bg: "#dcfce7" },
-    { label: "ยกเลิก",       value: queueData.canceled,  color: "#991b1b",    bg: "#fee2e2" },
+    { label: "คิวทั้งหมด",   value: queueData.total,    color: Colors.blue,  bg: "#ffffff" },
+    { label: "รอดำเนินการ", value: queueData.waiting,   color: "#FCC402",    bg: "#ffffff" },
+    { label: "ข้ามคิว",      value: queueData.skipped,  color: "#555555",       bg: "#ffffff" },
+    { label: "เสร็จแล้ว",   value: queueData.done,      color: "#166534",    bg: "#ffffff" },
+    { label: "ยกเลิก",       value: queueData.canceled,  color: "#991b1b",    bg: "#ffffff" },
   ];
-
+  
   const roleBadge = (role) =>
     role === "admin"
-      ? <span className="badge" style={{ backgroundColor: Colors.blue }}>Admin</span>
-      : <span className="badge bg-secondary">User</span>;
+      ? <span className="badge" style={{ backgroundColor:"#FCC402" ,color:"black"}}>Admin</span>
+      : <span className="badge" style={{ backgroundColor:"#003666" ,color:"white"}}>User</span>;
 
   const filterBtnStyle = (active, activeColor) => ({
     fontSize: "13px",
@@ -109,7 +109,7 @@ function AdminHome() {
     borderRadius: "20px",
     border: `1.5px solid ${activeColor}`,
     backgroundColor: active ? activeColor : "transparent",
-    color: active ? "#fff" : activeColor,
+    color: active ? "#ffff" : activeColor,
     cursor: "pointer",
     fontWeight: active ? "600" : "400",
     whiteSpace: "nowrap",
@@ -138,7 +138,7 @@ function AdminHome() {
                 style={{ backgroundColor: c.bg, borderRadius: "12px", boxShadow: "0 1px 6px rgba(0,0,0,0.07)" }}
               >
                 <div className="card-body py-3 px-2">
-                  <div style={{ fontSize: "11px", color: "#666", marginBottom: "4px", lineHeight: 1.3 }}>{c.label}</div>
+                  <div style={{ fontSize: "11px", color: "#666666", marginBottom: "4px", lineHeight: 1.3 }}>{c.label}</div>
                   <div style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: "700", color: c.color, lineHeight: 1 }}>{c.value}</div>
                 </div>
               </div>
@@ -156,7 +156,7 @@ function AdminHome() {
 
           <div className="d-flex flex-column flex-sm-row gap-2 align-items-start align-items-sm-center flex-wrap">
             <div className="d-flex gap-2 flex-wrap flex-shrink-0">
-              <button style={filterBtnStyle(roleFilter === "all", "#333")} onClick={() => setRoleFilter("all")}>
+              <button style={filterBtnStyle(roleFilter === "all", "#333333")} onClick={() => setRoleFilter("all")}>
                 ทั้งหมด <span style={{ marginLeft: "4px", fontWeight: "700" }}>{countAll}</span>
               </button>
               <button style={filterBtnStyle(roleFilter === "admin", Colors.blue)} onClick={() => setRoleFilter("admin")}>
@@ -184,7 +184,7 @@ function AdminHome() {
             <p className="text-muted text-center py-5" style={{ fontSize: "14px" }}>กำลังโหลด...</p>
           ) : filtered.length === 0 ? (
             <div className="text-center py-5">
-              <div style={{ fontSize: "2rem", marginBottom: "8px" }}>🔍</div>
+              <div style={{ fontSize: "2rem", marginBottom: "8px" }}><img src="/src/components/icon/search.svg" width="40" /></div>
               <p className="text-muted mb-0" style={{ fontSize: "14px" }}>ไม่พบผู้ใช้</p>
             </div>
           ) : (
@@ -196,7 +196,7 @@ function AdminHome() {
                     <th style={{ color: "#070707", fontWeight: "500", fontSize: "13px" }}>ชื่อผู้ใช้</th>
                     <th style={{ color: "#f070707ff", fontWeight: "500", fontSize: "13px" }}>Role</th>
                     <th className="d-none d-md-table-cell" style={{ color: "#070707", fontWeight: "500", fontSize: "13px" }}>วันที่สมัคร</th>
-                    <th style={{ color: Colors.yellow, fontWeight: "500", fontSize: "13px", width: 110 }}>จัดการ</th>
+                    <th style={{ color: "#070707", fontWeight: "500", fontSize: "13px", width: 110 }}>จัดการ</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -228,7 +228,7 @@ function AdminHome() {
                             onClick={() => openEdit(u)}
                             className="btn btn-sm"
                             style={{
-                              fontSize: "12px", backgroundColor: Colors.blue, color: "#fff",
+                              fontSize: "12px", backgroundColor: Colors.blue, color: "#ffffff",
                               borderRadius: "6px", padding: "3px 10px", whiteSpace: "nowrap",
                             }}
                           >
@@ -290,7 +290,7 @@ function AdminHome() {
                     </select>
                   </div>
                 </div>
-                <div className="modal-footer" style={{ borderTop: "1px solid #eee" }}>
+                <div className="modal-footer" style={{ borderTop: "1px solid #eeeeee" }}>
                   <button className="btn btn-outline-secondary" onClick={() => setEditUser(null)} style={{ fontSize: "14px" }}>ยกเลิก</button>
                   <button
                     className="btn fw-semibold"
