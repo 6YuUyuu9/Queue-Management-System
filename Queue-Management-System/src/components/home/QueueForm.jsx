@@ -50,7 +50,7 @@ const QueueForm = () => {
             )
 
             if (result.success) {
-                alert(`จองคิวสำเร็จ! โต๊ะ: ${tableResult.table.table_name}`)
+                alert(`จองคิวเรียบร้อย ขอบคุณที่ใช้บริการค่ะ`)
                 setForm({ personCount: '', date: '', arriveTime: '' })
                 localStorage.setItem('queue-updated', Date.now())
             }
