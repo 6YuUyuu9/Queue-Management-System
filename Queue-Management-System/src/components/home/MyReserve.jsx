@@ -25,9 +25,10 @@ const MyReserve = () => {
     }, [user])
 
     const isToday = (dateStr) => {
-        const today = new Date().toISOString().slice(0, 10)
-        return dateStr?.slice(0, 10) === today
-    }
+    const today = new Date()
+    const localDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
+    return dateStr?.slice(0, 10) === localDate
+}
 
     return (
         <div className='pt-3' style={{ background: Colors.lightGray, minHeight: '300px', padding: '0 18%' }}>

@@ -3,39 +3,42 @@ import { Colors } from '../constant/colors'
 import MyReserve from '../components/home/MyReserve'
 import MyHistory from '../components/home/MyHistory'
 import QueueForm from '../components/home/QueueForm'
-import { queueService } from '../services/queueService'
+import { queueService } from '../services/queueService' // ปรับ path ตามจริง
 
 const Home = () => {
   const [active, setActive] = useState('reserve')
-  const [currentQueue, setCurrentQueue] = useState(null)
-  const [queueCount, setQueueCount] = useState(0)
+  const [summary, setSummary] = useState({ latest_queue: '-', remaining_count: 0 })
 
   useEffect(() => {
-    const fetch = () => {
-        queueService.getSummary().then(data => {
-            setCurrentQueue(data.latest_queue)
-            setQueueCount(data.remaining_count > 0 ? data.remaining_count - 1 : 0)
-        })
+    const fetchSummary = async () => {
+      try {
+        const data = await queueService.getSummary()
+        setSummary(data)
+      } catch (err) {
+        console.error('โหลด summary ไม่ได้:', err)
+      }
     }
-    fetch()
-    const interval = setInterval(fetch, 30000)
-    return () => clearInterval(interval)
-}, [])
+    fetchSummary()
+  }, [])
 
   return (
     <div>
       <div style={{ padding: '0 17%' }}>
-        <p className='fs-5 pt-4 text-center'>คิวปัจจุบัน</p>
-        <div className="d-flex justify-content-center">
-          <p
-            style={{ color: Colors.blue, border: `2px solid ${Colors.yellow}`, borderRadius: '12px', padding: '0.1rem 5rem' }}
-            className='fs-3 fw-bold text-center'>
-            {currentQueue ?? 'ไม่มี'}
-            <p className='fs-6'>
-              {currentQueue ? `คิวหลังจากนี้ ${queueCount} คิว` : ''} 
-            </p>
-          </p>
-        </div>
+        {summary.latest_queue !== 'ไม่มีคิวรอเรียก' && (
+          <>
+            <p className='fs-5 pt-4 text-center'>คิวปัจจุบัน</p>
+            <div className="d-flex justify-content-center">
+              <p
+                style={{ color: Colors.blue, border: `2px solid ${Colors.yellow}`, borderRadius: '12px', padding: '0.1rem 5rem' }}
+                className='fs-3 fw-bold text-center'>
+                {summary.latest_queue}
+                <p className='fs-6'>
+                  คิวรอเข้า {summary.remaining_count} คิว
+                </p>
+              </p>
+            </div>
+          </>
+        )}
 
         <QueueForm />
 
