@@ -8,6 +8,7 @@ import { queueService } from '../services/queueService'
 const Home = () => {
   const [active, setActive] = useState('reserve')
   const [currentQueue, setCurrentQueue] = useState(null)
+  const [queueCount, setQueueCount] = useState(0)
 
   useEffect(() => {
     queueService.getAll().then(data => {
@@ -15,13 +16,10 @@ const Home = () => {
 
       const todayQueues = data
         .filter(q => q.reserve_date?.slice(0, 10) === today && q.status_id === '1')
-        .sort((a, b) => {
-          const timeDiff = new Date(b.reserve_date) - new Date(a.reserve_date)
-          if (timeDiff !== 0) return timeDiff
-          return Number(b.queue_id) - Number(a.queue_id)
-        })
+        .sort((a, b) => new Date(a.reserve_date) - new Date(b.reserve_date)) // เรียงน้อยไปมาก
 
       setCurrentQueue(todayQueues[0] || null)
+      setQueueCount(todayQueues.length > 0 ? todayQueues.length - 1 : 0) // นับคิวที่เหลือ
     })
   }, [])
 
@@ -35,7 +33,7 @@ const Home = () => {
             className='fs-3 fw-bold text-center'>
             {currentQueue?.queue_name ?? 'ไม่มี'}
             <p className='fs-6'>
-              {currentQueue ? `คิวหลังจากนี้ ${currentQueue.queue_id - 1} คิว` : ''}
+              {currentQueue ? `คิวหลังจากนี้ ${queueCount} คิว` : ''}
             </p>
           </p>
         </div>
