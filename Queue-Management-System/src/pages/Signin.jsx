@@ -4,7 +4,7 @@ import { useAuth } from '../context/useAuth'
 import { useNavigate } from 'react-router-dom'
 
 const Signin = () => {
-    const { login} = useAuth()
+    const { login } = useAuth()
     const navigate = useNavigate()
     const [form, setForm] = useState({ username: '', password: '' })
     const [error, setError] = useState('')
@@ -14,17 +14,17 @@ const Signin = () => {
     }
 
     const handleSubmit = async () => {
-    const loggedInUser = await login(form.username, form.password)  // รับ user กลับมาเลย
-    if (loggedInUser) {
-        if (loggedInUser.role === 'admin') {
-            navigate('/admin')
+        const loggedInUser = await login(form.username, form.password)
+        if (loggedInUser) {
+            if (loggedInUser.role === 'admin') {
+                navigate('/admin')
+            } else {
+                navigate('/')
+            }
         } else {
-            navigate('/')
+            setError('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
         }
-    } else {
-        setError('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
     }
-}
 
     return (
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f5f5f5' }}>
