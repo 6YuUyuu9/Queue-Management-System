@@ -3,7 +3,7 @@ import { Colors } from '../constant/colors'
 import MyReserve from '../components/home/MyReserve'
 import MyHistory from '../components/home/MyHistory'
 import QueueForm from '../components/home/QueueForm'
-import { queueService } from '../services/queueService' // ปรับ path ตามจริง
+import { queueService } from '../services/queueService' 
 
 const Home = () => {
   const [active, setActive] = useState('reserve')

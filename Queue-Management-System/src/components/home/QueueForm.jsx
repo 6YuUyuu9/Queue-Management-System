@@ -29,7 +29,7 @@ const QueueForm = () => {
 
         const selectedDateTime = new Date(`${form.date}T${form.arriveTime}`)
         if (selectedDateTime < new Date()) {
-            alert('ไม่สามารถจองวันและเวลาที่ผ่านมาแล้วได้')
+            alert('จองไม่สำเร็จ การจองของคุณอาจเป็นอดีต หรือกระชั้นชิดเกินไป กรุณาเลือกวันที่และเวลาใหม่')
             return
         }
 
