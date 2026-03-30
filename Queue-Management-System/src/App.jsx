@@ -1,36 +1,37 @@
 import React from 'react'
-import { Route, Routes, Navigate } from 'react-router-dom' 
+import { Route, Routes, Navigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Admin from './pages/Admin'
 import Home from './pages/Home'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
 import ProtectedRoute from './components/ProtectedRoute'
-import Example2 from './pages/admin/Example2'
-import Example1 from './pages/admin/Example1'
+import ManageQueue from './pages/admin/ManageQueue'
+import ManageTable from './pages/admin/ManageTable';
+import { useAuth } from './context/useAuth'
+import AdminDashboard from './pages/admin/AdminDashboard'
+import AdminHome from './pages/admin/AdminHome'
+import AdminNavbar from './components/AdminNavbar'
 
 function App() {
+  const { user } = useAuth()
+  const isAdmin = user?.role === 'admin'
+
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute requiredRole="admin">
-              <Example1 />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Navigate to="example2" replace />} />
-          <Route path="example2" element={<Example2 />} />
-        </Route>
-
-      </Routes>
+      {isAdmin ? (
+        /* Admin layout — AdminNavbar จัดการ sidebar + routes /admin/* ทั้งหมดเอง */
+        <AdminNavbar />
+      ) : (
+        /* User layout — Navbar ด้านบน + routes ของ user */
+        <>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </>
+      )}
     </>
   )
 }
