@@ -53,6 +53,7 @@ const QueueForm = () => {
                 alert(`จองคิวเรียบร้อย ขอบคุณที่ใช้บริการค่ะ`)
                 setForm({ personCount: '', date: '', arriveTime: '' })
                 localStorage.setItem('queue-updated', Date.now())
+                window.location.reload() 
             }
         } catch (error) {
             console.error('เกิดข้อผิดพลาด:', error)

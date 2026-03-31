@@ -328,6 +328,7 @@ function ManageQueue() {
 
             <div className="row g-2 mb-2">
               {[
+                { label: "ชื่อลูกค้า", value: selected.username || "-" }, 
                 { label: "โต๊ะ", value: selected.table_name || "-" },
                 { label: "ประเภทโต๊ะ", value: selected.type_name || "-" },
                 { label: "จำนวนคน", value: `${selected.person_count} คน` },
@@ -635,8 +636,11 @@ function ManageQueue() {
                             ที่
                           </th>
                           <th style={{ color: "#000", fontWeight: "500", fontSize: "13px" }}>
-                            ลูกค้า
+                            เบอร์คิว
                           </th>
+                          <th style={{ color: "#000", fontWeight: "500", fontSize: "13px" }}>
+                            ชื่อลูกค้า
+                          </th> 
                           <th style={{ color: "#000", fontWeight: "500", fontSize: "13px" }}>
                             โต๊ะ
                           </th>
@@ -666,6 +670,7 @@ function ManageQueue() {
                             <td className="fw-semibold" style={{ fontSize: "14px" }}>
                               {getDisplayName(q)}
                             </td>
+                            <td style={{ fontSize: "13px" }}>{q.username || "-"}</td>
                             <td style={{ fontSize: "13px" }}>{q.table_name || "-"}</td>
                             <td style={{ fontSize: "13px" }}>{q.person_count} คน</td>
                             <td style={{ fontSize: "13px" }}>{formatDate(q.reserve_date)}</td>

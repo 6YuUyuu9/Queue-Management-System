@@ -177,6 +177,7 @@ function AdminDashboard() {
                       <thead style={{ backgroundColor: Colors.blue }}>
                         <tr>
                           <th style={{ color: "#000000", fontWeight: "500", fontSize: "13px", width: "40px" }}>ที่</th>
+                          <th style={{ color: "#000000", fontWeight: "500", fontSize: "13px" }}>คิว</th> 
                           <th style={{ color: "#000000", fontWeight: "500", fontSize: "13px" }}>ผู้ใช้</th>
                           <th className="d-none d-sm-table-cell" style={{ color: "#000000", fontWeight: "500", fontSize: "13px" }}>โต๊ะ</th>
                           <th className="d-none d-lg-table-cell" style={{ color: "#000000", fontWeight: "500", fontSize: "13px" }}>ประเภท</th>
@@ -193,6 +194,7 @@ function AdminDashboard() {
                             className={selected?.queue_id === q.queue_id ? "table-active" : ""}
                           >
                             <td className="text-muted" style={{ fontSize: "13px" }}>{i + 1}</td>
+                            <td className="fw-semibold" style={{ fontSize: "13px", color: Colors.blue }}>{q.queue_name}</td> 
                             <td className="fw-semibold" style={{ fontSize: "14px" }}>{q.username}</td>
                             <td className="d-none d-sm-table-cell" style={{ fontSize: "13px" }}>{q.table_name}</td>
                             <td className="d-none d-lg-table-cell text-muted" style={{ fontSize: "13px" }}>{q.type_name}</td>
