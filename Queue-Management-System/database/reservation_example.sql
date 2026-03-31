@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2026 at 07:44 PM
+-- Generation Time: Mar 31, 2026 at 04:47 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -49,9 +49,8 @@ TRUNCATE TABLE `queue`;
 --
 
 INSERT INTO `queue` (`queue_id`, `queue_name`, `user_id`, `table_id`, `person_count`, `status_id`, `reserve_date`, `arrive_at`, `complete_at`) VALUES
-(1, 'A01', 1, 1, 2, 1, '2026-03-31 12:40:00', NULL, NULL),
-(2, 'A02', 2, 2, 4, 1, '2026-03-31 13:44:00', NULL, NULL),
-(3, 'B01', 3, 3, 6, 1, '2026-03-31 03:44:00', NULL, NULL);
+(1, 'A01', 1, 1, 2, 1, '2026-03-31 09:45:00', NULL, NULL),
+(2, 'A01', 3, 2, 4, 1, '2026-04-01 10:46:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -156,9 +155,9 @@ TRUNCATE TABLE `users`;
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `role`, `create_at`) VALUES
-(1, 'admin_grace', '1234', 'admin', '2026-03-30 00:39:03'),
-(2, 'somchai', '1234', 'user', '2026-03-30 00:39:03'),
-(3, 'witoon', '1234', 'user', '2026-03-30 00:39:03');
+(1, 'user1', '$2y$10$p09UC954YT6RYbgVJ5.b5emYPOM1qnb8QwoBzyzJ63CiewhXQTZr.', 'user', '2026-03-31 09:26:16'),
+(2, 'admin', '$2y$10$sMn/YwhMzvnee0DbxGFeweHDkQSy7/1WLYlCaYUUR3erCH9Cw.qmi', 'admin', '2026-03-31 09:32:05'),
+(3, 'user2', '$2y$10$AYjlRcqsuOnFaFwftHI5f.nBTJC8whc7mnpGyMfmmaNvyEOuK/n1C', 'user', '2026-03-31 09:45:06');
 
 --
 -- Indexes for dumped tables
@@ -205,7 +204,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `queue`
 --
 ALTER TABLE `queue`
-  MODIFY `queue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `queue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tables`
