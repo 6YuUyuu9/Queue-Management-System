@@ -3,7 +3,7 @@ import { Colors } from '../constant/colors'
 import MyReserve from '../components/home/MyReserve'
 import MyHistory from '../components/home/MyHistory'
 import QueueForm from '../components/home/QueueForm'
-import { queueService } from '../services/queueService' 
+import { queueService } from '../services/queueService'
 
 const Home = () => {
   const [active, setActive] = useState('reserve')
@@ -24,21 +24,19 @@ const Home = () => {
   return (
     <div>
       <div style={{ padding: '0 17%' }}>
-        {summary.latest_queue !== 'ไม่มีคิวรอเรียก' && (
-          <>
-            <p className='fs-5 pt-4 text-center'>คิวปัจจุบัน</p>
-            <div className="d-flex justify-content-center">
-              <p
-                style={{ color: Colors.blue, border: `2px solid ${Colors.yellow}`, borderRadius: '12px', padding: '0.1rem 5rem' }}
-                className='fs-3 fw-bold text-center'>
-                {summary.latest_queue}
-                <p className='fs-6'>
-                  คิวรอเข้า {summary.remaining_count} คิว
-                </p>
-              </p>
-            </div>
-          </>
-        )}
+        <>
+          <p className='fs-5 pt-4 text-center'>คิวปัจจุบัน</p>
+          <div className="d-flex justify-content-center">
+            <p
+              style={{ color: Colors.blue, border: `2px solid ${Colors.yellow}`, borderRadius: '12px', padding: '0.1rem 5rem' }}
+              className='fs-3 fw-bold text-center'>
+              {summary.latest_queue}
+              <span style={{ display: 'block' }} className='fs-6'>
+                คิวรอเข้า {summary.remaining_count} คิว
+              </span>
+            </p>
+          </div>
+        </>
 
         <QueueForm />
 

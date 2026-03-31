@@ -1,10 +1,7 @@
 import api from '../api/axiosConfig';
 
 export const queueService = {
-    /**
-     * ดึงรายการคิวทั้งหมด 
-     * (จะได้รับข้อมูลที่มี Join ชื่อ User และชื่อโต๊ะมาเรียบร้อยแล้ว)
-     */
+
     getAll: async () => {
         try {
             const response = await api.get('/queue.php/list');

@@ -131,7 +131,7 @@ function AdminDashboard() {
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
 
         <h4 className="fw-bold mb-3" style={{ color: Colors.blue, fontSize: "clamp(16px, 3vw, 22px)" }}>
-          จัดการคิว
+          รายการคิว
         </h4>
 
         {/* ===== Search ===== */}

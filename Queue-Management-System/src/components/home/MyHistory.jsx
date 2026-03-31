@@ -10,16 +10,18 @@ const MyHistory = () => {
     useEffect(() => {
         queueService.getAll().then(data => {
             const history = data.filter(q =>
-                (q.status_id === '2' || q.status_id === '3') &&
-                q.user_id === String(user?.user_id)
+                ([2, 3, 4].includes(Number(q.status_id))) &&
+                Number(q.user_id) === Number(user?.user_id)
             )
             setQueues(history)
         })
     }, [user])
 
     const getStatusStyle = (statusId) => {
-        if (statusId === '3') return { color: 'green', fontWeight: 'bold' }
-        if (statusId === '2') return { color: 'tomato', fontWeight: 'bold' }
+        const id = Number(statusId)
+        if (id === 4) return { color: 'tomato', fontWeight: 'bold' }
+        if (id === 3) return { color: 'green', fontWeight: 'bold' }
+        if (id === 2) return { color: 'orange', fontWeight: 'bold' }
         return {}
     }
 

@@ -23,7 +23,7 @@ const NAV_ITEMS = [
   { to: "/admin/dashboard", 
     end: false, 
     icon: <img src="/src/components/icon/bar-chart-line-fill.svg" width="20" />, 
-    label: "จัดการคิว"  },
+    label: "รายการคิว"  },
   { to: "/admin/managetable",  
     end: false, 
     icon: <img src="/src/components/icon/pencil-square.svg" width="20" />, 
