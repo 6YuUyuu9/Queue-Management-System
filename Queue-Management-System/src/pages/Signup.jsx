@@ -19,6 +19,7 @@ const Signup = () => {
     }
 
     const handleSubmit = async () => {
+        setError('') 
         const passwordError = validatePassword(form.password)
         if (passwordError) {
             setError(passwordError)

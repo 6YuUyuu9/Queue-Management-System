@@ -10,6 +10,7 @@ const MyReserve = () => {
     const fetchQueues = () => {
         queueService.getAll().then(data => {
             const active = data.filter(q =>
+                q.status_id !== '2' &&
                 q.status_id !== '3' &&
                 q.status_id !== '4' &&
                 q.user_id === String(user?.user_id)

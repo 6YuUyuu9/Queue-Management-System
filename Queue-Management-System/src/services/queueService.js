@@ -12,14 +12,6 @@ export const queueService = {
         }
     },
 
-    /**
-     * จองคิวใหม่
-     * @param {number} userId - ID ของผู้ใช้งาน
-     * @param {number} tableId - ID ของโต๊ะที่เลือก
-     * @param {number} personCount - จำนวนลูกค้า
-     * @param {string} date - วันที่จากหน้าจอ (เช่น "2026-03-29")
-     * @param {string} time - เวลาจากหน้าจอ (เช่น "16:41" หรือ "04:41 PM")
-     */
     add: async (userId, tableId, personCount, date, time) => {
         try {
             console.log('add params:', { userId, tableId, personCount, date, time })
@@ -37,7 +29,6 @@ export const queueService = {
         }
     },
 
-    // ตัวอย่างฟังก์ชันใน queueService.js
     update: async (queueId, tableId, personCount) => {
         try {
             const response = await api.post('/queue.php/update', {
@@ -52,11 +43,6 @@ export const queueService = {
         }
     },
 
-    /**
-     * อัปเดตสถานะคิว
-     * @param {number} queueId - ID ของคิว
-     * @param {number} statusId - ID สถานะใหม่ (1: reserved, 2: skipped, 3: completed)
-     */
     updateStatus: async (queueId, statusId) => {
         try {
             const response = await api.post('/queue.php/update-status', {
@@ -70,13 +56,11 @@ export const queueService = {
         }
     },
 
-    // เรียกใช้เมื่อลูกค้ามาถึง
     arrive: async (queueId) => {
         const response = await api.post('/queue.php/arrive', { queue_id: queueId });
         return response.data;
     },
 
-    // เรียกใช้เมื่อบริการเสร็จสิ้น
     complete: async (queueId) => {
         const response = await api.post('/queue.php/complete', { queue_id: queueId });
         return response.data;
@@ -87,10 +71,6 @@ export const queueService = {
         return response.data;
     },
 
-    /**
-     * ลบคิวออกจากระบบ
-     * @param {number} queueId - ID ของคิวที่ต้องการลบ
-     */
     delete: async (queueId) => {
         try {
             const response = await api.post('/queue.php/delete', {

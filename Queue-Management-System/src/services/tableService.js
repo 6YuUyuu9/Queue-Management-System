@@ -6,7 +6,6 @@ export const tableService = {
         return response.data;
     },
 
-    // เพิ่มใน services/tableService.js
     getTypes: async () => {
         try {
             const response = await api.get('/table.php/types');
