@@ -3,6 +3,5 @@ import { AuthContext } from "./AuthProvider"
 
 export function useAuth() {
     const context = useContext(AuthContext)
-    if (!context) throw new Error('useAuth ต้องใช้ใน AuthProvider เท่านั้น')
     return context
 }

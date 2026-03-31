@@ -29,7 +29,7 @@ const QueueForm = () => {
 
         const selectedDateTime = new Date(`${form.date}T${form.arriveTime}`)
         if (selectedDateTime < new Date()) {
-            alert('ไม่สามารถจองวันและเวลาที่ผ่านมาแล้วได้')
+            alert('จองไม่สำเร็จ การจองของคุณอาจเป็นอดีต หรือกระชั้นชิดเกินไป กรุณาเลือกวันที่และเวลาใหม่')
             return
         }
 
@@ -63,8 +63,8 @@ const QueueForm = () => {
     return (
         <div className="d-flex flex-column gap-2 container mt-4">
             <div className="d-flex gap-2 align-items-center">
-                <label>ลงทะเบียนจองคิว</label>
-                <label className='fs-4'>สวัสดีคุณ {user?.username}</label>
+                <label className='fs-3'>ลงทะเบียนจองคิว</label>
+                <label className='fs-5'>สวัสดีคุณ {user?.username}</label>
             </div>
 
             <div style={{ backgroundColor: Colors.lightGray, borderRadius: '16px', padding: '1.5rem' }}>
